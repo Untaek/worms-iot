@@ -8,7 +8,7 @@ const QUESTDB_HOST = process.env.QUESTDB_HOST || 'localhost'
 const QUESTDB_PORT = Number(process.env.QUESTDB_PORT) || 9000
 
 const start = async () => {
-    const client = await mqtt.connectAsync(`mqtt://${MQTT_HOST}`, { port: MQTT_PORT })
+    const client = await mqtt.connectAsync(`mqtt://${MQTT_HOST}:${MQTT_PORT}`)
     const sender = Sender.fromConfig(`http::addr=${QUESTDB_HOST}:${QUESTDB_PORT}`)
 
     console.log('mqtt broker connected')
