@@ -1,0 +1,19 @@
+{
+  "name": "worms-iot",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "npx ts-node index.ts"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@questdb/nodejs-client": "^3.0.0",
+    "destr": "^2.0.3",
+    "mqtt": "^5.9.1",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.5.4"
+  }
+}
