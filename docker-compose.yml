@@ -1,12 +1,16 @@
 services:
   mosquitto:
     image: eclipse-mosquitto:2.0.18
+    restart: unless-stopped
     ports:
       - 1883:1883
       - 9001:9001
+    volumes:
+      - ./mosquitto.conf:/mosquitto/config/mosquitto.conf:ro
       
   questdb:
     image: questdb/questdb:8.1.0
+    restart: unless-stopped
     ports:
       - 9000:9000
       - 9009:9009
@@ -16,6 +20,9 @@ services:
   consumer:
     build: 
       context: .
+    depends_on:
+      - mosquitto
+      - questdb
     environment:
       MQTT_HOST: mosquitto
       MQTT_PORT: 1883
