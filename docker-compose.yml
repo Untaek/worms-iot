@@ -26,5 +26,5 @@ services:
     environment:
       MQTT_HOST: mosquitto
       MQTT_PORT: 1883
-      QUESTDB_HOST: db
+      QUESTDB_HOST: questdb
       QUESTDB_PORT: 9000
