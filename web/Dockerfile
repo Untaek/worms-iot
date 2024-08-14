@@ -8,8 +8,8 @@ COPY ./package-lock.json ./
 
 RUN npm install
 
-COPY ./server/package.json ./server
-COPY ./server/package-lock.json ./server
+COPY ./server/package.json ./server/package.json
+COPY ./server/package-lock.json ./server/package-lock.json
 RUN cd server
 RUN npm install
 
