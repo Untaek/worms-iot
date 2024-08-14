@@ -8,14 +8,11 @@ COPY ./package-lock.json ./
 
 RUN npm install
 
-COPY ./server/package.json ./server/package.json
-COPY ./server/package-lock.json ./server/package-lock.json
+COPY . .
+
 RUN cd server
 RUN npm install
-
 RUN cd ../
-
-COPY . .
 
 ARG VITE_API_HOST
 ENV VITE_API_HOST=$VITE_API_HOST
