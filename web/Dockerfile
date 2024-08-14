@@ -8,11 +8,14 @@ COPY ./package-lock.json ./
 
 RUN npm install
 
-COPY . .
+COPY ./server/package.json ./server/package.json
+COPY ./server/package-lock.json ./server/package-lock.json
 
 RUN cd server
 RUN npm install
 RUN cd ../
+
+COPY . .
 
 ARG VITE_API_HOST
 ENV VITE_API_HOST=$VITE_API_HOST
@@ -23,4 +26,4 @@ RUN npm run build
 
 EXPOSE 3000
 
-CMD ["npm", "start"]
+CMD ["node", "server/index.js"]
