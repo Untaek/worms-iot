@@ -35,7 +35,7 @@ services:
     depends_on:
       - questdb
     ports:
-      - 9002:80
+      - 9002:3000
     environment:
       QUESTDB_HOST: questdb
       QUESTDB_PORT: 9000
