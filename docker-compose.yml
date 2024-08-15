@@ -7,7 +7,6 @@ services:
       - 9001:9001
     volumes:
       - ./mosquitto.conf:/mosquitto/config/mosquitto.conf:ro
-      - ./questdb:/var/lib/questdb
       
   questdb:
     image: questdb/questdb:8.1.0
@@ -17,6 +16,8 @@ services:
       - 9009:9009
       - 8812:8812
       - 9003:9003
+    volumes:
+      - ./questdb:/var/lib/questdb
 
   consumer:
     build: 
@@ -24,6 +25,7 @@ services:
     depends_on:
       - mosquitto
       - questdb
+    restart: unless-stopped
     environment:
       MQTT_HOST: mosquitto
       MQTT_PORT: 1883
@@ -37,6 +39,7 @@ services:
       - questdb
     ports:
       - 9002:3000
+    restart: unless-stopped
     environment:
       QUESTDB_HOST: questdb
       QUESTDB_PORT: 9000
