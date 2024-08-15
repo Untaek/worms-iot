@@ -7,6 +7,7 @@ services:
       - 9001:9001
     volumes:
       - ./mosquitto.conf:/mosquitto/config/mosquitto.conf:ro
+      - ./questdb:/var/lib/questdb
       
   questdb:
     image: questdb/questdb:8.1.0
