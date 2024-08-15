@@ -11,9 +11,7 @@ RUN npm install
 COPY ./server/package.json ./server/package.json
 COPY ./server/package-lock.json ./server/package-lock.json
 
-RUN cd server
-RUN npm install
-RUN cd ../
+RUN cd server && npm install && cd ../
 
 COPY . .
 
