@@ -1,6 +1,7 @@
 import path from 'path'
 import express from 'express'
 import axios from 'axios'
+import cors from 'cors'
 
 const QUESTDB_HOST = process.env.QUESTDB_HOST || '52.78.68.176'
 const QUESTDB_PORT = Number(process.env.QUESTDB_PORT) || 9000
@@ -8,6 +9,8 @@ const QUESTDB_PORT = Number(process.env.QUESTDB_PORT) || 9000
 axios.defaults.baseURL = `http://${QUESTDB_HOST}:${QUESTDB_PORT}`
 
 const app = express()
+
+app.use(cors())
 
 app.use(express.json())
 

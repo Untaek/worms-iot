@@ -7,6 +7,13 @@ import { UserProvider } from './providers/user.provider.tsx'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { Toaster } from './components/ui/toaster.tsx'
 import { Toaster as Sooner } from './components/ui/sonner.tsx'
+import axios from 'axios'
+
+console.log(process.env.NODE_ENV)
+
+if (process.env.NODE_ENV === 'development') {
+  axios.defaults.baseURL = 'http://localhost:3000'
+}
 
 const queryClient = new QueryClient()
 

@@ -3,8 +3,6 @@ import { Navigate, RouteObject, createBrowserRouter } from 'react-router-dom'
 import Root from '@/router/Root'
 import { useUser } from '@/providers/user.provider'
 import { Error404 } from '@/router/error/Error404'
-import { Setting } from './Setting'
-import { ContentView } from '@/components/layout/ContentView'
 import { create } from 'zustand'
 import { Dashboard } from './content/Dashboard'
 
@@ -44,7 +42,6 @@ const routes: ProtectedRouteObject[] = [
     protect: false,
     children: [
       { path: '/', element: <Dashboard /> },
-      { path: '/settings', element: <Setting /> },
     ],
   },
   {
