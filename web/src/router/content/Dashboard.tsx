@@ -6,23 +6,29 @@ import { LineChart, Line, XAxis,  ResponsiveContainer, YAxis, CartesianGrid, Pie
 import { ChartLegend, ChartTooltip } from '@/components/ui/chart'
 import dayjs from 'dayjs'
 
-export const Dashboard = () => {
-  const [data, setData] = useState({})
+type GraphData = {
+  temperature: number
+  humidity: number
+}
 
-  const formattedData = useMemo(() => {
-    return data.dataset?.map(d => {
+export const Dashboard = () => {
+  const [formattedData, setData] = useState<GraphData[]>([])
+
+  const setFormattedData = (data: any) => {
+    setData(
+     data.dataset?.map(d => {
       return data.columns.reduce((obj, c, i) => {
         obj[c.name] = d[i]
         return obj
       }, {})
-    })
-  }, [data])
+    }))
+  }
 
   useEffect(() => {
-    axios.get('/data').then(res => setData(res.data))
+    axios.get('/data').then(res => setFormattedData(res.data))
 
     const interval = setInterval(() => {
-      axios.get('/data').then(res => setData(res.data))
+      axios.get('/data').then(res => setFormattedData(res.data))
     }, 5000)
 
     return () => {
@@ -30,8 +36,8 @@ export const Dashboard = () => {
     }
   }, [])
 
-  const temperature = formattedData?.at(-1).temperature
-  const humidity = formattedData?.at(-1).humidity
+  const temperature = formattedData.at(-1)?.temperature
+  const humidity = formattedData.at(-1)?.humidity
 
   const renderActiveShape = (props) => {
     const RADIAN = Math.PI / 180;
