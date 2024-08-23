@@ -1,3 +1,4 @@
+import classNames from 'classnames'
 import React from 'react'
 
 export type ActionProps = {
@@ -13,7 +14,7 @@ type Props = {
 
 export const SectionView = ({ title, children, className, actions }: Props) => {
   return (
-    <section className="rounded-md bg-white">
+    <section className="rounded-md bg-white flex flex-col">
       {title && (
         <div className="flex items-center justify-between border-b border-gray-100 p-4">
           <h2 className="font-semibold">{title}</h2>
@@ -22,7 +23,7 @@ export const SectionView = ({ title, children, className, actions }: Props) => {
           </div>
         </div>
       )}
-      <div className={className}>{children}</div>
+      <div className={classNames('flex-1', className)}>{children}</div>
     </section>
   )
 }

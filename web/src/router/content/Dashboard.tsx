@@ -5,6 +5,7 @@ import axios from 'axios'
 import { LineChart, Line, XAxis,  ResponsiveContainer, YAxis, CartesianGrid, PieChart, Pie, Cell, Sector } from 'recharts'
 import { ChartLegend, ChartTooltip } from '@/components/ui/chart'
 import dayjs from 'dayjs'
+import { Cam } from '@/components/Cam'
 
 type GraphData = {
   temperature: number
@@ -120,6 +121,9 @@ export const Dashboard = () => {
             </Pie>
           </PieChart>
         </ResponsiveContainer>
+      </SectionView>
+      <SectionView title="카메라" className='overflow-hidden rounded-b-md'>
+        <Cam />
       </SectionView>
       </div>
     </ContentView>
