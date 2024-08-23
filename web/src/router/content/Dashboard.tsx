@@ -81,7 +81,7 @@ export const Dashboard = () => {
           </LineChart>
         </ResponsiveContainer>
       </SectionView>
-      <div className='grid grid-cols-4 gap-4'>
+      <div className='grid 2xl:grid-cols-4 xl:grid-cols-3 lg:grid-cols-2 grid-cols-1 gap-4'>
       <SectionView title="현재 온도" className='-mb-24'>
         <ResponsiveContainer width='100%' height={320}>
           <PieChart>
