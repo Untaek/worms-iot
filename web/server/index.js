@@ -4,6 +4,7 @@ import axios from 'axios'
 import cors from 'cors'
 import fs from 'fs'
 
+let imageBuffer
 let imageBase64 = ''
 
 const QUESTDB_HOST = process.env.QUESTDB_HOST || '52.78.68.176'
@@ -31,6 +32,21 @@ app.get('/image', async (req, res) => {
   res.json({ base64: imageBase64 })
 })
 
+app.get('/stream', async (req, res) => {
+  res.writeHead(200, { 'Content-Type': 'multipart/x-mixed-replace; boundary=--frame' })
+  const interval = setInterval(() => {
+    if (imageBuffer) {
+      res.write(`--frame\nContent-Type: image/jpeg\nContent-length: ${imageBuffer.length}\n\n`)
+      res.write(imageBuffer)
+    }
+  }, 66)
+
+  req.on('close', () => {
+    console.log('close')
+    clearInterval(interval)
+  })
+})
+
 app.post('/upload', async (req, res) => {
   const data = []
 
@@ -39,8 +55,9 @@ app.post('/upload', async (req, res) => {
   })
 
   req.on("end", () => {
-    const image = Buffer.concat(data)
-    imageBase64 = image.toString('base64')
+    imageBuffer = Buffer.concat(data)
+    imageBase64 = imageBuffer.toString('base64')
+    // fs.writeFileSync('example.jpeg', imageBuffer)
     res.status(200).send()
   })
 })
