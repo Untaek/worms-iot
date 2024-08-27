@@ -3,14 +3,31 @@ import express from 'express'
 import axios from 'axios'
 import cors from 'cors'
 import fs from 'fs'
+import mqtt from 'mqtt'
+
+let control = { light: false }
+
+const MQTT_HOST = process.env.MQTT_HOST || '192.168.0.26'
+const MQTT_PORT = Number(process.env.MQTT_PORT) || 1883
+const QUESTDB_HOST = process.env.QUESTDB_HOST || '52.78.68.176'
+const QUESTDB_PORT = Number(process.env.QUESTDB_PORT) || 9000
 
 let imageBuffer
 let imageBase64 = ''
 
-const QUESTDB_HOST = process.env.QUESTDB_HOST || '52.78.68.176'
-const QUESTDB_PORT = Number(process.env.QUESTDB_PORT) || 9000
-
 axios.defaults.baseURL = `http://${QUESTDB_HOST}:${QUESTDB_PORT}`
+
+const client = mqtt.connect(`mqtt://${MQTT_HOST}:${MQTT_PORT}`)
+client.subscribe('control-status')
+client.on('message', async (topic, message) => {
+  const jsonString = message.toString()
+  const jsonObject = JSON.parse(jsonString)
+
+  console.log(topic, jsonObject)
+  if (topic === 'control-status') {
+    control = jsonObject
+  }
+})
 
 const app = express()
 
@@ -45,6 +62,17 @@ app.get('/stream', async (req, res) => {
     console.log('close')
     clearInterval(interval)
   })
+})
+
+app.get('/control', async (req, res) => {
+  res.json(control)
+})
+
+app.post('/control', async (req, res) => {
+  const body = req.body
+  client.publish('control', JSON.stringify(body))
+  console.log(body)
+  res.json(body)
 })
 
 app.post('/upload', async (req, res) => {

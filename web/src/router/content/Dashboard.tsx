@@ -1,11 +1,16 @@
 import { ContentView } from '@/components/layout/ContentView'
 import { SectionView } from '@/components/layout/SectionView'
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import axios from 'axios'
 import { LineChart, Line, XAxis,  ResponsiveContainer, YAxis, CartesianGrid, PieChart, Pie, Cell, Sector } from 'recharts'
 import { ChartLegend, ChartTooltip } from '@/components/ui/chart'
 import dayjs from 'dayjs'
 import { Cam } from '@/components/Cam'
+import { Toggle } from '@/components/ui/toggle'
+import { Switch } from '@/components/ui/switch'
+import { Label } from '@/components/ui/label'
+import { toast } from 'sonner'
+import { Control } from '@/components/Control'
 
 type GraphData = {
   temperature: number
@@ -68,6 +73,7 @@ export const Dashboard = () => {
 
   return (
     <ContentView title="테스트">
+      <Control />
       <SectionView title="온도/습도 데이터">
         <ResponsiveContainer width='100%' height={320}>
           <LineChart data={formattedData} margin={{top: 16, right: 32, bottom: 12}}>
