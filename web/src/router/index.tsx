@@ -40,9 +40,7 @@ const routes: ProtectedRouteObject[] = [
     path: '/',
     element: <Root />,
     protect: false,
-    children: [
-      { path: '/', element: <Dashboard /> },
-    ],
+    children: [{ path: '/', element: <Dashboard /> }],
   },
   {
     path: '*',

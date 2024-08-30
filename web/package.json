@@ -47,6 +47,7 @@
     "cmdk": "^1.0.0",
     "date-fns": "^3.6.0",
     "dayjs": "^1.11.11",
+    "echarts": "^5.5.1",
     "embla-carousel-react": "^8.0.4",
     "file-saver": "^2.0.5",
     "immer": "^10.1.1",

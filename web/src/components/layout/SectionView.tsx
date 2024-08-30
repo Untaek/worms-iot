@@ -14,7 +14,7 @@ type Props = {
 
 export const SectionView = ({ title, children, className, actions }: Props) => {
   return (
-    <section className="rounded-md bg-white flex flex-col">
+    <section className="flex flex-col rounded-md bg-white">
       {title && (
         <div className="flex items-center justify-between border-b border-gray-100 p-4">
           <h2 className="font-semibold">{title}</h2>

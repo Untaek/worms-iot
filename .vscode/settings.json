@@ -1,0 +1,19 @@
+{
+    "typescript.enablePromptUseWorkspaceTsdk": true,
+    "[typescriptreact]": {
+      "editor.codeActionsOnSave": {
+        "source.fixAll": "explicit"
+      }
+    },
+    "[typescript]": {
+      "editor.codeActionsOnSave": {
+        "source.fixAll": "explicit"
+      }
+    },
+    "[javascript]": {
+      "editor.codeActionsOnSave": {
+        "source.fixAll": "explicit"
+      }
+    },
+    "editor.tabSize": 2
+  }

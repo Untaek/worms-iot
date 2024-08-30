@@ -1,39 +1,19 @@
 import {
-  BarChartIcon,
   FileIcon,
   HomeIcon,
-  PieChart,
+  PanelLeftClose,
+  PanelRightClose,
 } from 'lucide-react'
 
 import { useAuth } from '../providers/user.provider'
 import { NavLink, Outlet } from 'react-router-dom'
-import classnames from 'classnames'
 import React, { useState } from 'react'
 import classNames from 'classnames'
-import { Avatar } from '@/components/ui/avatar'
 import { Header } from '@/components/layout/Header'
+import { navs } from '@/nav'
+import { Button } from '@/components/ui/button'
 
 const year = new Date().getFullYear()
-
-export const navs: Nav[] = [
-  {
-    icon: <BarChartIcon className="size-4" />,
-    label: '기본',
-    header: true,
-  },
-  {
-    to: '/',
-    label: '대시보드',
-    icon: <PieChart className="size-4" />,
-  },
-]
-
-type Nav = {
-  icon?: React.ReactNode
-  to?: string
-  label: string
-  header?: boolean
-}
 
 export default function Root() {
   const auth = useAuth()
@@ -41,13 +21,13 @@ export default function Root() {
 
   return (
     <div
-      className={classNames('grid h-screen w-screen', {
+      className={classNames('grid w-full', {
         'md:grid-cols-[220px_1fr] lg:grid-cols-[240px_1fr]': isOpenSidebar,
         'grid-cols-[72px_1fr]': !isOpenSidebar,
       })}
     >
-      <div className="hidden border-r bg-gray-50 md:block">
-        <div className="sticky top-0 flex h-full max-h-screen flex-col gap-2">
+      <div className="sticky top-0 hidden h-screen border-r bg-gray-50 md:block">
+        <div className="flex h-full max-h-screen flex-col gap-2">
           <div className="flex h-14 items-center border-b px-4 lg:h-[60px] lg:px-6">
             {isOpenSidebar ? (
               <NavLink to="/" className="flex items-center gap-2 font-semibold">
@@ -84,8 +64,8 @@ export default function Root() {
                     key={link.to}
                     to={link.to}
                     className={({ isActive }) =>
-                      classnames(
-                        'group mb-1 flex h-9 items-center gap-3 rounded-lg px-3 text-sm tracking-tight text-muted-foreground transition-all hover:bg-muted hover:text-primary',
+                      classNames(
+                        'text-muted-foreground hover:bg-muted hover:text-primary group mb-1 flex h-9 items-center gap-3 rounded-lg px-3 text-sm tracking-tight transition-all',
                         {
                           'bg-muted text-primary': isActive,
                           'justify-center': !isOpenSidebar,
@@ -107,27 +87,27 @@ export default function Root() {
               })}
             </nav>
           </div>
-          <div className="mt-auto flex items-end justify-between p-4 text-sm text-muted-foreground">
+          <div className="text-muted-foreground mt-auto flex items-end justify-between p-4 text-sm">
             {isOpenSidebar && (
               <a href="https://diffrag.com" target="_blank">
                 © {year}. Diffrag
               </a>
             )}
 
-            {/* <Button
+            <Button
               variant="ghost"
               className="ml-auto h-auto p-2"
               onClick={() => setIsOpenSidebar((prev) => !prev)}
             >
               {isOpenSidebar ? <PanelLeftClose /> : <PanelRightClose />}
-            </Button> */}
+            </Button>
           </div>
         </div>
       </div>
       <div className="flex flex-col">
         <Header />
 
-        <main className="flex w-full max-w-[100vw] flex-1 overflow-auto">
+        <main>
           <Outlet />
         </main>
       </div>
