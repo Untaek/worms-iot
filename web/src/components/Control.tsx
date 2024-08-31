@@ -10,7 +10,7 @@ import { ChevronLeft, ChevronRight } from 'lucide-react'
 
 export const Control = () => {
   const loading = useRef(false)
-  const [control, setControl] = useState({ light: false, himidity: 70 })
+  const [control, setControl] = useState({ light: false, humidity: 70 })
   const [initalized, setInitalized] = useState(false)
 
   useEffect(() => {
@@ -50,7 +50,7 @@ export const Control = () => {
       return
     }
 
-    onClickControl({ himidity: value })
+    onClickControl({ humidity: value })
   }
 
   return (
@@ -67,17 +67,17 @@ export const Control = () => {
         <div className="flex items-center space-x-2">
           <Button
             variant="ghost"
-            onClick={() => onClickHumidity(control.himidity - 5)}
+            onClick={() => onClickHumidity(control.humidity - 5)}
           >
             <ChevronLeft size={16} />
           </Button>
           <div className="flex w-20 items-center justify-center gap-2">
             <Label>습도</Label>
-            <p>{control.himidity ?? '?'}%</p>
+            <p>{control.humidity ?? '?'}%</p>
           </div>
           <Button
             variant="ghost"
-            onClick={() => onClickHumidity(control.himidity + 5)}
+            onClick={() => onClickHumidity(control.humidity + 5)}
           >
             <ChevronRight size={16} />
           </Button>
