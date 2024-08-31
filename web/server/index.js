@@ -5,7 +5,7 @@ import cors from 'cors'
 import fs from 'fs'
 import mqtt from 'mqtt'
 
-let control = { light: false }
+let control = { light: false, humidity: 70 }
 
 const MQTT_HOST = process.env.MQTT_HOST || '192.168.0.26'
 const MQTT_PORT = Number(process.env.MQTT_PORT) || 1883
@@ -50,10 +50,14 @@ app.get('/image', async (req, res) => {
 })
 
 app.get('/stream', async (req, res) => {
-  res.writeHead(200, { 'Content-Type': 'multipart/x-mixed-replace; boundary=--frame' })
+  res.writeHead(200, {
+    'Content-Type': 'multipart/x-mixed-replace; boundary=--frame',
+  })
   const interval = setInterval(() => {
     if (imageBuffer) {
-      res.write(`--frame\nContent-Type: image/jpeg\nContent-length: ${imageBuffer.length}\n\n`)
+      res.write(
+        `--frame\nContent-Type: image/jpeg\nContent-length: ${imageBuffer.length}\n\n`,
+      )
       res.write(imageBuffer)
     }
   }, 66)
@@ -78,11 +82,11 @@ app.post('/control', async (req, res) => {
 app.post('/upload', async (req, res) => {
   const data = []
 
-  req.on('data', chunk => {
+  req.on('data', (chunk) => {
     data.push(chunk)
   })
 
-  req.on("end", () => {
+  req.on('end', () => {
     imageBuffer = Buffer.concat(data)
     imageBase64 = imageBuffer.toString('base64')
     // fs.writeFileSync('example.jpeg', imageBuffer)

@@ -195,19 +195,6 @@ export const Dashboard = () => {
   return (
     <ContentView title="테스트">
       <Control />
-      {/* <SectionView title="온도/습도 데이터">
-        <ResponsiveContainer width='100%' height={320}>
-          <LineChart data={formattedData} margin={{top: 16, right: 32, bottom: 12}}>
-            <ChartLegend verticalAlign="top" height={44} />
-            <Line dataKey="temperature" dot={false} isAnimationActive={false} stroke='#42a4f5' strokeWidth={2} name="온도"></Line>
-            <Line dataKey="humidity" dot={false} isAnimationActive={false} stroke='#82ca9d' strokeWidth={2} name="습도"></Line>
-            <CartesianGrid strokeDasharray="3 3" />
-            <XAxis dataKey="timestamp" fontSize={12} tickFormatter={(v) => dayjs(v).format('HH:mm:ss')} />
-            <YAxis fontSize={12} />
-            <ChartTooltip isAnimationActive={false} labelFormatter={(v) => dayjs(v).format('YYYY-MM-DD HH:mm:ss')} formatter={(v) => v.toFixed(1)} />
-          </LineChart>
-        </ResponsiveContainer>
-      </SectionView> */}
       <SectionView title="온도/습도 데이터">
         <div ref={chartContainer} className="h-[400px]"></div>
       </SectionView>
@@ -258,9 +245,7 @@ export const Dashboard = () => {
             </PieChart>
           </ResponsiveContainer>
         </SectionView>
-        <SectionView title="카메라" className="overflow-hidden rounded-b-md">
-          <Cam />
-        </SectionView>
+        <Cam />
       </div>
     </ContentView>
   )
