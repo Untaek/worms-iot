@@ -29,7 +29,7 @@ export const Control = () => {
 
     try {
       const res = await axios.post('/control', value)
-      setControl(res.data)
+      setControl({ ...control, ...res.data })
     } catch (e) {
       toast.error(e.toString())
     } finally {
